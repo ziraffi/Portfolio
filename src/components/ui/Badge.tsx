@@ -1,11 +1,11 @@
 import React from 'react';
 import { cn } from '@/src/utils/cn';
 
-interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeProps extends React.ComponentPropsWithoutRef<'div'> {
   variant?: 'default' | 'secondary' | 'outline';
 }
 
-export function Badge({ className, variant = 'default', ...props }: BadgeProps) {
+export function Badge({ className, variant = 'default', children, ...props }: BadgeProps) {
   const variants = {
     default: 'bg-primary text-primary-fg border-transparent',
     secondary: 'bg-muted text-muted-fg border-transparent',
@@ -20,6 +20,8 @@ export function Badge({ className, variant = 'default', ...props }: BadgeProps) 
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 }
