@@ -54,7 +54,7 @@ export const portfolioData = {
       period: "Jan 2025 - Present",
       achievements: [
         "Developed custom booking plugins integrated with CRM systems, increasing customer retention by 25%.",
-        "Created a video call platform with advanced animations and features, enhancing user experience.",
+        "Created custom SMTP and Application tracking platform with advanced animations and features, enhancing user experience.",
         "Managed servers and optimized website performance, reducing downtime by 30%.",
         "Designed responsive WordPress websites, improving accessibility for 10% mobile users.",
       ],
