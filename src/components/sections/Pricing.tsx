@@ -19,7 +19,7 @@ const techPricing = {
           'Managed WP Installation',
           'Custom Theme Setup',
           'Domain / Hosting / SSL',
-          '5 Free Emails',
+          '1 Free Email',
           'Inquiry Form Builder',
           '1 Year Support',
           'Monthly Maintainance: ₹6,000'
@@ -36,7 +36,7 @@ const techPricing = {
           'Everything in Basic',
           'Essential SEO Plugins',
           'Jetpack Security Suite',
-          '10 Free Emails',
+          '2 Free Emails',
           'Advanced SEO Setup',
           'Custom Widgets',
           'Monthly Maintainance: ₹10,000'
@@ -74,10 +74,10 @@ const techPricing = {
         price: '15,999',
         features: [
           '15 Dynamic Pages',
-          'Domain, Hosting & SSL Incl.',
+          'Domain, Hosting & SSL',
           'Google Search Console Setup',
           '2GB Media Storage',
-          '10 Professional Emails',
+          '2 Professional Emails',
           'Auth Integration Ready',
           'Performance Optimization',
           '1yr Free Technical Support',
@@ -119,7 +119,7 @@ const techPricing = {
           '1 Year Free Domain (.com/.in)',
           '1 Year Free Cloud Hosting',
           'Free SSL Certificate',
-          '5 Professional Emails',
+          '1 Professional Emails',
           'SEO Friendly Setup',
           'WhatsApp & Call Integration',
           'Inquiry Form',
@@ -137,7 +137,7 @@ const techPricing = {
           'All Basic Features',
           'High-Performance Animations',
           'Custom Iconography',
-          '10 Professional Emails',
+          '2 Professional Emails',
           'Performance Monitoring',
           'Priority Email Support',
           'Monthly Maintainance: ₹5,000'
