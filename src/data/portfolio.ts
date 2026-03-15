@@ -11,7 +11,7 @@ export const portfolioData = {
     socials: {
       linkedin: "https://linkedin.com/in/rajkiran",
       github: "https://github.com/ziraffi",
-      portfolio: "https://url-project.onrender.com/",
+      portfolio: "https://portfolio.lowproperties.com/",
     },
   },
   skills: {
@@ -21,10 +21,8 @@ export const portfolioData = {
       "JavaScript",
       "jQuery",
       "Ajax",
-      "SSR",
-      "Next.js",
       "React",
-      "Angular",
+      "Next.js",
     ],
     backend: ["Python", "Node.js", "Express.js", "Flask"],
     databases: ["MySQL", "MongoDB"],
