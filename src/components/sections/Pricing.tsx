@@ -389,7 +389,7 @@ export function Pricing() {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-border/50">
-                  <th className="py-5 font-black text-xs uppercase tracking-widest text-muted-fg pr-8 sticky left-0 bg-card z-20">
+                  <th className="py-5 font-black text-xs uppercase tracking-widest text-muted-fg pr-8 sticky left-0 bg-card z-20 pl-6">
                     Key Feature
                   </th>
                   <th className="py-5 font-black text-xs uppercase tracking-widest text-muted-fg min-w-[140px]">
@@ -409,7 +409,7 @@ export function Pricing() {
                     key={i}
                     className="hover:bg-primary/5 transition-colors group"
                   >
-                    <td className="py-5 text-fg font-bold pr-8 sticky left-0 bg-card/95 backdrop-blur-md z-10 group-hover:bg-primary/5">
+                    <td className="py-5 text-fg font-bold pr-8 sticky left-0 bg-card z-10 group-hover:bg-primary/5 pl-6">
                       {row.feature}
                     </td>
                     <td
