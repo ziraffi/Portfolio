@@ -1,21 +1,26 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+export type MaintenanceCycle = 'monthly' | 'quarterly' | 'halfyearly' | 'yearly';
+
+export interface SelectedPlan {
+  tech: string;
+  tier: string;
+  cycle?: MaintenanceCycle;
+}
+
 type PlanContextType = {
-  selectedPlan: {
-    tech: string;
-    tier: string;
-  } | null;
-  setPlan: (tech: string, tier: string) => void;
+  selectedPlan: SelectedPlan | null;
+  setPlan: (tech: string, tier: string, cycle?: MaintenanceCycle) => void;
   clearPlan: () => void;
 };
 
 const PlanContext = createContext<PlanContextType | undefined>(undefined);
 
 export function PlanProvider({ children }: { children: ReactNode }) {
-  const [selectedPlan, setSelectedPlan] = useState<PlanContextType['selectedPlan']>(null);
+  const [selectedPlan, setSelectedPlan] = useState<SelectedPlan | null>(null);
 
-  const setPlan = (tech: string, tier: string) => {
-    setSelectedPlan({ tech, tier });
+  const setPlan = (tech: string, tier: string, cycle: MaintenanceCycle = 'monthly') => {
+    setSelectedPlan({ tech, tier, cycle });
     // Auto scroll to contact form
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -39,3 +44,4 @@ export function usePlan() {
   }
   return context;
 }
+

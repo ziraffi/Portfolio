@@ -18,8 +18,9 @@ export function Contact() {
     name: '', 
     email: '', 
     message: '',
-    tech: 'nextjs',
-    tier: 'Business'
+    tech: 'wordpress',
+    tier: 'Basic',
+    cycle: 'monthly'
   });
   
   const [isVerified, setIsVerified] = useState(false);
@@ -32,7 +33,8 @@ export function Contact() {
       setFormData(prev => ({
         ...prev,
         tech: selectedPlan.tech,
-        tier: selectedPlan.tier
+        tier: selectedPlan.tier,
+        cycle: selectedPlan.cycle || prev.cycle
       }));
     }
   }, [selectedPlan]);
@@ -83,6 +85,7 @@ export function Contact() {
       to_email: personalEmail,
       tech: formData.tech.toUpperCase(),
       tier: formData.tier,
+      maintenance_cycle: formData.cycle.toUpperCase(),
       message: formData.message,
       verified: isVerified ? "Yes (Google OAuth)" : "No",
       turnstile_status: "Active",
@@ -113,8 +116,9 @@ export function Contact() {
         name: '', 
         email: '', 
         message: '', 
-        tech: 'nextjs', 
-        tier: 'Business' 
+        tech: 'wordpress', 
+        tier: 'Basic',
+        cycle: 'monthly'
       });
       setIsVerified(false);
       setTurnstileToken(null);
@@ -280,23 +284,23 @@ export function Contact() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="tech" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                    Technology Choice
+                    Tech Stack
                   </label>
                   <div className="relative">
                     <select
                       id="tech"
                       value={formData.tech}
                       onChange={handleSanitizedChange}
-                      className="w-full px-6 py-4 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer"
+                      className="w-full px-4 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-sm"
                     >
                       <option value="wordpress">WordPress / CMS</option>
                       <option value="nextjs">Next.js / Pro</option>
-                      <option value="vite">Vite / Static</option>
+                      <option value="vite">Vite + React</option>
                     </select>
-                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
                       <Settings className="w-4 h-4" />
                     </div>
                   </div>
@@ -304,37 +308,59 @@ export function Contact() {
                 
                 <div className="space-y-2">
                   <label htmlFor="tier" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                    Selected Tier
+                    Plan Tier
                   </label>
                   <div className="relative">
                     <select
                       id="tier"
                       value={formData.tier}
                       onChange={handleSanitizedChange}
-                      className="w-full px-6 py-4 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer"
+                      className="w-full px-4 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-sm"
                     >
                       {formData.tech === 'vite' && (
                         <>
-                          <option value="Basic">Basic</option>
-                          <option value="Advanced">Advanced</option>
+                          <option value="Basic">Basic (₹50k)</option>
+                          <option value="Advanced">Advanced (₹75k)</option>
                         </>
                       )}
                       {formData.tech === 'nextjs' && (
                         <>
-                          <option value="Business">Business</option>
-                          <option value="Enterprise">Enterprise</option>
+                          <option value="Business">Business (₹85k)</option>
+                          <option value="Enterprise">Enterprise (₹1.5L)</option>
                         </>
                       )}
                       {formData.tech === 'wordpress' && (
                         <>
-                          <option value="Basic">Basic</option>
-                          <option value="Portfolio">Portfolio</option>
-                          <option value="E-commerce">E-commerce</option>
+                          <option value="Basic">Basic (₹50k)</option>
+                          <option value="Corporate & Pro">Corporate & Pro (₹75k)</option>
+                          <option value="E-Commerce & Scale">E-Commerce & Scale (₹1.2L)</option>
                         </>
                       )}
                     </select>
-                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
                       <Layout className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="cycle" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
+                    Maintenance
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="cycle"
+                      value={formData.cycle}
+                      onChange={handleSanitizedChange}
+                      className="w-full px-4 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-sm"
+                    >
+                      <option value="monthly">Monthly</option>
+                      <option value="quarterly">Quarterly (Save ~7%)</option>
+                      <option value="halfyearly">Half-Yearly (Save ~13%)</option>
+                      <option value="yearly">Yearly (Save 20%)</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
+                      <ShieldCheck className="w-4 h-4" />
                     </div>
                   </div>
                 </div>

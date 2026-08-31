@@ -65,8 +65,8 @@ export function FAQ() {
       icon: <Package className="w-5 h-5" />
     },
     {
-      question: "What does Monthly Maintenance include?",
-      answer: "Monthly maintenance covers regular security updates, plugin/dependency patches, 24/7 uptime monitoring, high-performance cloud hosting renewals, and small content requests. It ensures your 2026-ready site stays fast and secure without any technical overhead for you.",
+      question: "What do Maintenance Plans include & how do cycles work?",
+      answer: "Maintenance covers security updates, plugin/dependency patches, 24/7 uptime monitoring, database backups, performance audits, and content updates. You can choose between Monthly, Quarterly (Save ~7%), Half-Yearly (Save ~13%), or Yearly cycles (Save 20% / 2 Months Free) based on your operational preferences.",
       icon: <ShieldCheck className="w-5 h-5" />
     },
     {
