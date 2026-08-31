@@ -130,7 +130,7 @@ export const portfolioData = {
       id: 1,
       title: "Intone Networks - Corporate B2B Relaunch",
       url: "https://intone.com/",
-      image: "/projects/health-intone.png",
+      image: "/projects/intone.png",
       description:
         "Corporate B2B website relaunch built with a custom token-based design system and custom SEO plugin.",
       highlights: [
@@ -156,6 +156,20 @@ export const portfolioData = {
     },
     {
       id: 3,
+      title: "Health Intone - Enterprise Portal",
+      url: "https://health.intone.com/",
+      image: "/projects/health-intone.png",
+      description:
+        "Healthcare IT solutions portal focusing on enterprise systems, regulatory compliance, and secure cloud infrastructure.",
+      highlights: [
+        "Enterprise healthcare solutions portal design",
+        "Secure, accessible multi-device experience",
+        "Performance tuned with fast response times",
+      ],
+      tags: ["Healthcare IT", "Enterprise", "Solutions", "WordPress"],
+    },
+    {
+      id: 4,
       title: "Fabiia - Interior Design E-Commerce",
       url: "https://www.fabiia.com/",
       image: "/projects/fabiia.png",
@@ -169,7 +183,7 @@ export const portfolioData = {
       tags: ["WooCommerce", "Astra", "E-Commerce", "SEO"],
     },
     {
-      id: 4,
+      id: 5,
       title: "CallCare24 - Healthcare Platform",
       url: "https://callcare24.com/",
       image: "/projects/callcare24.png",
@@ -297,16 +311,6 @@ export const portfolioData = {
     },
     {
       id: 14,
-      title: "Health Intone",
-      url: "https://health.intone.com/",
-      image: "/projects/health-intone.png",
-      description:
-        "Healthcare IT solutions portal focusing on enterprise systems.",
-      highlights: ["Enterprise healthcare solutions", "Secure platform design"],
-      tags: ["Healthcare IT", "Enterprise", "Solutions"],
-    },
-    {
-      id: 15,
       title: "Carenest Health",
       url: "https://www.carenesthealth.com/",
       image: "/projects/carenesthealth.png",
