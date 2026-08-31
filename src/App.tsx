@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from './context/ThemeContext';
 import { PlanProvider } from './context/PlanContext';
 import { Navbar } from './components/layout/Navbar';
@@ -41,6 +42,7 @@ export default function App() {
             <Contact />
           </main>
           <Footer />
+          <Analytics />
         </div>
       </PlanProvider>
     </ThemeProvider>
