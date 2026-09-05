@@ -6,7 +6,7 @@ export const portfolioData = {
     phone: "+91 8919210972",
     location: "Hyderabad, India (Remote)",
     summary:
-      "Web Developer with 4+ years of experience owning production sites end-to-end — server management and performance optimization. Took a corporate site's Google Lighthouse Performance score from 31 to 100 and Core Web Vitals from Failed to Passed, and led a from-scratch WordPress build through a zero-downtime production deployment. Skilled at integrating third-party APIs and taking ownership of a site after launch, not just at handoff.",
+      "Web Developer with 4+ years of experience owning production sites end-to-end — server management and performance optimization. Took a corporate site's Google Lighthouse Performance score from 31 to 100 and Core Web Vitals from Failed to Passed, and led a from-scratch web build through a zero-downtime production deployment. Skilled at integrating third-party APIs and taking ownership of a site after launch, not just at handoff.",
     image: "/profile.png",
     socials: {
       linkedin: "https://linkedin.com/in/rajkiran",

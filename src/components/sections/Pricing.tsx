@@ -269,7 +269,7 @@ const cycles: { id: MaintenanceCycle; label: string; badge?: string }[] = [
   { id: "monthly", label: "Monthly" },
   { id: "quarterly", label: "Quarterly", badge: "Save ~7%" },
   { id: "halfyearly", label: "Half-Yearly", badge: "Save ~13%" },
-  { id: "yearly", label: "Yearly", badge: "Save 20% (Best Value)" },
+  { id: "yearly", label: "Yearly", badge: "Save 20%" },
 ];
 
 export function Pricing() {
@@ -331,26 +331,26 @@ export function Pricing() {
           </div>
 
           {/* Maintenance Cycle Selector Bar */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 bg-card/60 p-2 sm:p-2.5 rounded-2xl border border-border/60 backdrop-blur-md shadow-md">
-            <div className="flex items-center gap-2 px-3 text-xs font-bold text-muted-fg uppercase tracking-wider">
+          <div className="w-full max-w-4xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-3 bg-card/60 p-2 sm:p-2.5 rounded-2xl border border-border/60 backdrop-blur-md shadow-md">
+            <div className="flex items-center justify-center gap-2 px-3 text-xs font-bold text-muted-fg uppercase tracking-wider shrink-0">
               <Calendar className="w-4 h-4 text-primary" />
               <span>Maintenance Cycle:</span>
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="w-full sm:w-auto grid grid-cols-2 sm:flex sm:flex-row sm:flex-nowrap items-center justify-center gap-1.5">
               {cycles.map((cycle) => (
                 <button
                   key={cycle.id}
                   onClick={() => setActiveCycle(cycle.id)}
-                  className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center gap-1.5 ${
+                  className={`relative flex-1 sm:flex-initial px-3.5 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 text-center ${
                     activeCycle === cycle.id
                       ? "bg-primary text-primary-fg shadow-sm"
                       : "bg-muted/30 text-muted-fg hover:text-fg hover:bg-muted/60"
                   }`}
                 >
-                  <span>{cycle.label}</span>
+                  <span className="whitespace-nowrap">{cycle.label}</span>
                   {cycle.badge && (
                     <span
-                      className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded-full ${
+                      className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded-full whitespace-nowrap ${
                         activeCycle === cycle.id
                           ? "bg-white/20 text-white"
                           : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
