@@ -352,7 +352,7 @@ export function Pricing() {
                     <span
                       className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded-full whitespace-nowrap ${
                         activeCycle === cycle.id
-                          ? "bg-white/20 text-white"
+                          ? "bg-primary-fg/15 text-primary-fg border border-primary-fg/20"
                           : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20"
                       }`}
                     >
@@ -400,8 +400,8 @@ export function Pricing() {
                   className="relative h-full"
                 >
                   {plan.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary px-4 py-1.5 rounded-full text-[10px] font-black text-white uppercase tracking-[0.2em] shadow-lg z-20 flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-amber-300" />
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary px-4 py-1.5 rounded-full text-[10px] font-black text-primary-fg uppercase tracking-[0.2em] shadow-lg z-20 flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-amber-400 dark:text-amber-500" />
                       Most Popular
                     </div>
                   )}

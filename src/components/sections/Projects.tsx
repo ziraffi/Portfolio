@@ -139,7 +139,7 @@ export function Projects() {
                                 target="_blank" 
                                 rel="noreferrer" 
                                 onClick={(e) => isDragging && e.preventDefault()}
-                                className="bg-white text-black p-3.5 rounded-full transform translate-y-6 group-hover/card:translate-y-0 transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-white shadow-xl"
+                                className="bg-white text-black p-3.5 rounded-full transform translate-y-6 group-hover/card:translate-y-0 transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-fg shadow-xl"
                                 aria-label={`Visit ${project.title}`}
                               >
                                 <ExternalLink className="w-5 h-5" />
