@@ -26,6 +26,7 @@ export function Contact() {
   const [isVerified, setIsVerified] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileError, setTurnstileError] = useState(false);
 
   // Sync with selected plan from Pricing section
   React.useEffect(() => {
@@ -71,8 +72,12 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isVerified || !turnstileToken) {
-      alert("Please complete human verification and verify your email!");
+    if (!isVerified) {
+      alert("Please authenticate with Google to verify your email!");
+      return;
+    }
+    if (!turnstileToken && !turnstileError) {
+      alert("Please complete the verification check.");
       return;
     }
     
@@ -88,7 +93,7 @@ export function Contact() {
       maintenance_cycle: formData.cycle.toUpperCase(),
       message: formData.message,
       verified: isVerified ? "Yes (Google OAuth)" : "No",
-      turnstile_status: "Active",
+      turnstile_status: turnstileToken ? "Verified (Turnstile Passed)" : (turnstileError ? "Fallback (OAuth Verified - Turnstile Bypass)" : "Pending"),
       timestamp: new Date().toLocaleString()
     };
 
@@ -381,20 +386,35 @@ export function Contact() {
                 />
               </div>
 
-              {/* Turnstile Human Verification */}
-              <div className="flex justify-center py-2">
-                <Turnstile 
-                  siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
-                  onSuccess={(token) => setTurnstileToken(token)}
-                  options={{ theme: 'auto' }}
-                />
+              {/* Turnstile Human Verification with Graceful Fallback */}
+              <div className="flex flex-col items-center justify-center py-2 min-h-16">
+                {!turnstileError ? (
+                  <Turnstile 
+                    siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
+                    onSuccess={(token) => {
+                      setTurnstileToken(token);
+                      setTurnstileError(false);
+                    }}
+                    onError={(err) => {
+                      console.warn('[Cloudflare Turnstile] Challenge blocked/failed (Error 300030 or CSP):', err);
+                      setTurnstileError(true);
+                    }}
+                    onExpire={() => setTurnstileToken(null)}
+                    options={{ theme: 'auto', retry: 'auto', retryInterval: 3000 }}
+                  />
+                ) : (
+                  <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                    <ShieldCheck className="w-4 h-4 shrink-0" />
+                    <span>Security Verified: Authenticated via Google OAuth</span>
+                  </div>
+                )}
               </div>
               
               <Button 
                 type="submit" 
                 className="w-full py-7 rounded-2xl font-black text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500 active:scale-[0.98]" 
                 size="lg"
-                disabled={status === 'submitting' || !isVerified || !turnstileToken}
+                disabled={status === 'submitting' || !isVerified || (!turnstileToken && !turnstileError)}
               >
                 {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </Button>

@@ -19,7 +19,7 @@ export function Hero() {
       {/* Background Layer 2: Grid and Noise - Mid layer */}
       <div className="absolute inset-0 z-1 pointer-events-none">
         <div className="absolute inset-0 bg-grid-premium opacity-100" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.2] dark:opacity-[0.3] brightness-100 contrast-150 mix-blend-soft-light" />
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.2] dark:opacity-[0.3] brightness-100 contrast-150 mix-blend-soft-light" />
       </div>
 
       {/* Background Layer 3: Particles - On top of patterns */}

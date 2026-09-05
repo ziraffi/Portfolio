@@ -32,7 +32,7 @@ export default function App() {
             </div>
 
             <div className="relative bg-muted/20">
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
               <Skills />
             </div>
 
