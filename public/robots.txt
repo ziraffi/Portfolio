@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: https://portfolio.lowproperties.com/sitemap.xml
+Host: https://portfolio.lowproperties.com/

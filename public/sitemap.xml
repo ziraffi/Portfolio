@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://portfolio.lowproperties.com/</loc>
-    <lastmod>2026-07-29</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://portfolio.lowproperties.com/profile.png</image:loc>
+      <image:title>Mallikanti Rajkiran - Web Developer &amp; WordPress Specialist</image:title>
+      <image:caption>Profile image of Mallikanti Rajkiran</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio.lowproperties.com/projects/intone.png</image:loc>
+      <image:title>Intone Networks - Corporate B2B Relaunch</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio.lowproperties.com/projects/intoneccm.png</image:loc>
+      <image:title>Intone CCM - Customer Communications Management</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio.lowproperties.com/projects/health-intone.png</image:loc>
+      <image:title>Health Intone - Enterprise Healthcare Portal</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio.lowproperties.com/projects/fabiia.png</image:loc>
+      <image:title>Fabiia - Interior Design E-Commerce</image:title>
+    </image:image>
   </url>
 </urlset>
