@@ -290,6 +290,7 @@ export function Pricing() {
         <SectionHeading
           title="Scalable Web Solutions & Pricing"
           subtitle="Transparent, value-driven pricing starting from ₹50,000. Select your technology and flexible maintenance cycle tailored for long-term growth."
+          className="text-center flex flex-col items-center mx-auto"
         />
 
         {/* Tech Selector Tabs */}
@@ -364,15 +365,15 @@ export function Pricing() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.div
             key={activeTech}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-3"
+            className="space-y-3 flex flex-col items-center text-center"
           >
-            <h2 className="text-3xl font-black text-fg">{currentTech.name}</h2>
-            <p className="text-lg text-muted-fg leading-relaxed px-4">
+            <h2 className="text-3xl font-black text-fg text-center">{currentTech.name}</h2>
+            <p className="text-lg text-muted-fg leading-relaxed px-4 max-w-2xl mx-auto text-center">
               {currentTech.description}
             </p>
           </motion.div>

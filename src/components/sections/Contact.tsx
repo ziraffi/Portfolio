@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, ShieldCheck, CheckCircle2, AlertCircle, Settings, Layout } from 'lucide-react';
+import { Mail, Phone, MapPin, ShieldCheck, CheckCircle2, AlertCircle, Settings, Layout, Info } from 'lucide-react';
 import { SectionHeading } from '@/src/components/ui/SectionHeading';
 import { Button } from '@/src/components/ui/Button';
 import { portfolioData } from '@/src/data/portfolio';
@@ -142,121 +142,143 @@ export function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading 
           title="Get In Touch" 
-          subtitle="I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!"
+          subtitle="Ready to build something exceptional? Choose your preferred stack or send a direct inquiry below."
+          className="text-center flex flex-col items-center mx-auto mb-6"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mt-12">
-          {/* Info Side */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-10 py-4"
-          >
-            <div className="flex items-start gap-6 group">
-              <div className="shrink-0 w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:rotate-6 shadow-sm">
-                <Mail className="w-6 h-6" />
-              </div>
-              <div className="pt-1">
-                <h3 className="text-xl font-bold text-fg tracking-tight">Email</h3>
-                <p className="mt-2 text-muted-fg leading-relaxed">
-                  <a href={`mailto:${personalEmail}`} className="hover:text-primary transition-colors text-lg">
-                    {personalEmail}
-                  </a>
+        {/* Protected Contact Notice */}
+        <div className="max-w-2xl mx-auto mb-10 p-3.5 sm:p-4 rounded-2xl bg-card/60 border border-border/60 backdrop-blur-md text-center flex items-center justify-center gap-2.5 text-xs sm:text-sm text-muted-fg shadow-sm">
+          <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
+          <span>
+            <strong className="text-fg font-semibold">Protected Communication:</strong> Direct contact coordinates (phone, email, and location) are disclosed immediately below to verified users upon sending a message.
+          </span>
+        </div>
+
+        {/* Centralized Form Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-5xl mx-auto p-6 sm:p-10 lg:p-12 rounded-[2.5rem] bg-card/40 border border-border/60 shadow-2xl backdrop-blur-xl relative group"
+        >
+          {/* Success Overlay with Revealed Direct Contact Details */}
+          <AnimatePresence>
+            {status === 'success' && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-card/98 backdrop-blur-2xl rounded-[2.5rem] p-6 sm:p-10 text-center overflow-y-auto"
+              >
+                <div className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-500 mb-4 font-bold">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-fg mb-2">Message Sent Successfully!</h3>
+                <p className="text-muted-fg max-w-lg mb-8 text-sm leading-relaxed">
+                  Thank you for authenticating and reaching out! As a verified genuine contact, here are my direct coordinates:
                 </p>
-              </div>
-            </div>
 
-            <div className="flex items-start gap-6 group">
-              <div className="shrink-0 w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:-rotate-6 shadow-sm">
-                <Phone className="w-6 h-6" />
-              </div>
-              <div className="pt-1">
-                <h3 className="text-xl font-bold text-fg tracking-tight">Phone</h3>
-                <p className="mt-2 text-muted-fg leading-relaxed">
-                  <a href={`tel:${phone}`} className="hover:text-primary transition-colors text-lg">
-                    {phone}
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-6 group">
-              <div className="shrink-0 w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:rotate-6 shadow-sm">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <div className="pt-1">
-                <h3 className="text-xl font-bold text-fg tracking-tight">Location</h3>
-                <p className="mt-2 text-muted-fg text-lg leading-relaxed">{location}</p>
-              </div>
-            </div>
-            
-            <div className="pt-8 p-6 rounded-3xl bg-muted/30 border border-border/50 backdrop-blur-sm">
-              <div className="flex items-center gap-3 mb-4 text-primary">
-                <ShieldCheck className="w-5 h-5" />
-                <span className="text-xs font-bold uppercase tracking-wider">Security Verified</span>
-              </div>
-              <p className="text-sm font-medium text-muted-fg italic">
-                "Driven by a passion for creating seamless digital experiences that solve real-world problems. Let's build something amazing together."
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Form Side */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="p-8 sm:p-10 rounded-[2.5rem] bg-card/40 border border-border/60 shadow-2xl backdrop-blur-xl relative group"
-          >
-            <AnimatePresence>
-              {status === 'success' && (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-card/95 backdrop-blur-md rounded-[2.5rem] p-10 text-center"
-                >
-                  <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 mb-6 font-bold">
-                    <CheckCircle2 className="w-10 h-10" />
+                {/* Revealed Contact Details Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-2xl mb-8">
+                  <div className="p-4 rounded-2xl bg-muted/40 border border-border/60 flex flex-col items-center text-center group/card hover:border-primary/50 transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-2">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-muted-fg mb-1">Direct Email</span>
+                    <a href={`mailto:${personalEmail}`} className="text-xs sm:text-sm font-bold text-fg hover:text-primary transition-colors break-all">
+                      {personalEmail}
+                    </a>
                   </div>
-                  <h3 className="text-2xl font-black text-fg mb-2">Message Sent!</h3>
-                  <p className="text-muted-fg">Thanks for reaching out. I'll get back to you soon.</p>
-                  <Button variant="secondary" className="mt-8" onClick={() => setStatus('idle')}>Send Another</Button>
-                </motion.div>
-              )}
-            </AnimatePresence>
 
-            {/* Form Background Accent */}
-            <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              {!isVerified ? (
-                <div className="p-8 rounded-3xl border-2 border-dashed border-primary/20 bg-primary/5 text-center space-y-4">
-                  <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <AlertCircle className="w-6 h-6" />
+                  <div className="p-4 rounded-2xl bg-muted/40 border border-border/60 flex flex-col items-center text-center group/card hover:border-primary/50 transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-2">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-muted-fg mb-1">Direct Phone</span>
+                    <a href={`tel:${phone}`} className="text-xs sm:text-sm font-bold text-fg hover:text-primary transition-colors">
+                      {phone}
+                    </a>
                   </div>
-                  <h4 className="font-bold text-fg underline decoration-primary/30 underline-offset-4">Authenticate to Connect</h4>
-                  <p className="text-sm text-muted-fg">To prevent spam, please verify your email before sending a message.</p>
+
+                  <div className="p-4 rounded-2xl bg-muted/40 border border-border/60 flex flex-col items-center text-center group/card hover:border-primary/50 transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-2">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-muted-fg mb-1">Location</span>
+                    <span className="text-xs sm:text-sm font-bold text-fg">
+                      {location}
+                    </span>
+                  </div>
+                </div>
+
+                <Button variant="secondary" className="px-8 py-3 rounded-xl font-bold" onClick={() => setStatus('idle')}>
+                  Send Another Message
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Form Background Accent */}
+          <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+          {/* Form: Left and Right Row Split */}
+          <form className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" onSubmit={handleSubmit}>
+            
+            {/* Left Column: Authenticate to Connect with Tooltip + Name & Email */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              {/* Authenticate to Connect with Tooltip */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <label className="text-[10px] font-black text-fg/50 uppercase tracking-[0.2em]">
+                      Authenticate to Connect
+                    </label>
+                    <div className="relative group/tooltip inline-flex items-center">
+                      <button 
+                        type="button"
+                        aria-label="Authentication Info"
+                        className="text-muted-fg/60 hover:text-primary transition-colors cursor-help p-0.5"
+                      >
+                        <Info className="w-3.5 h-3.5" />
+                      </button>
+                      <div className="absolute left-0 bottom-full mb-2 w-64 p-3 rounded-2xl bg-card border border-border shadow-2xl text-xs text-muted-fg font-normal leading-relaxed opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-300 pointer-events-none z-50 backdrop-blur-xl">
+                        <p className="font-bold text-fg mb-1 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                          <span>Spam Protection</span>
+                        </p>
+                        To prevent automated bot scraping and protect direct phone/email channels, quick Google authentication is required before sending.
+                        <div className="absolute left-3 top-full -mt-1 border-4 border-transparent border-t-card" />
+                      </div>
+                    </div>
+                  </div>
+                  {!isVerified && (
+                    <span className="text-[9px] font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      Required
+                    </span>
+                  )}
+                </div>
+
+                {!isVerified ? (
                   <Button 
                     type="button" 
-                    className="w-full bg-white text-black hover:bg-neutral-100 border border-neutral-200 shadow-sm flex items-center justify-center gap-3 font-bold"
+                    className="w-full py-4 rounded-2xl bg-white text-black hover:bg-neutral-100 border border-neutral-200 shadow-sm flex items-center justify-center gap-3 font-bold text-sm transition-all"
                     onClick={() => login()}
                     disabled={status === 'submitting'}
                   >
                     <img src="https://www.google.com/favicon.ico" className="w-4 h-4" alt="Google" />
                     {status === 'submitting' ? 'Verifying...' : 'Verify with Google'}
                   </Button>
-                </div>
-              ) : (
-                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center gap-3 text-green-600 font-bold text-sm">
-                  <CheckCircle2 className="w-5 h-5" />
-                  Email Verified: <span>{formData.email}</span>
-                </div>
-              )}
+                ) : (
+                  <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span className="truncate">Verified: {formData.email}</span>
+                  </div>
+                )}
+              </div>
 
+              {/* Name Field */}
               <div className="space-y-2">
                 <label htmlFor="name" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
                   Your Name
@@ -267,12 +289,13 @@ export function Contact() {
                   value={formData.name}
                   onChange={handleSanitizedChange}
                   readOnly={isVerified}
-                  className={`w-full px-6 py-4 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 ${isVerified ? 'opacity-70 cursor-not-allowed bg-muted/20' : ''}`}
+                  className={`w-full px-5 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 text-sm ${isVerified ? 'opacity-80 bg-muted/20' : ''}`}
                   placeholder="Full Name"
                   required
                 />
               </div>
               
+              {/* Email Field */}
               <div className="space-y-2">
                 <label htmlFor="email" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
                   Email Address
@@ -283,13 +306,18 @@ export function Contact() {
                   value={formData.email}
                   onChange={handleSanitizedChange}
                   readOnly={isVerified}
-                  className={`w-full px-6 py-4 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 ${isVerified ? 'opacity-70 cursor-not-allowed bg-muted/20' : ''}`}
+                  className={`w-full px-5 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 text-sm ${isVerified ? 'opacity-80 bg-muted/20' : ''}`}
                   placeholder="email@example.com"
                   required
                 />
               </div>
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Right Column: Remaining fields (Selectors, Message, Turnstile, Submit) */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              {/* Selectors Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <label htmlFor="tech" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
                     Tech Stack
@@ -299,14 +327,14 @@ export function Contact() {
                       id="tech"
                       value={formData.tech}
                       onChange={handleSanitizedChange}
-                      className="w-full px-4 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-sm"
+                      className="w-full px-3.5 py-3 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-xs"
                     >
                       <option value="wordpress">WordPress / CMS</option>
                       <option value="nextjs">Next.js / Pro</option>
                       <option value="vite">Vite + React</option>
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
-                      <Settings className="w-4 h-4" />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
+                      <Settings className="w-3.5 h-3.5" />
                     </div>
                   </div>
                 </div>
@@ -320,7 +348,7 @@ export function Contact() {
                       id="tier"
                       value={formData.tier}
                       onChange={handleSanitizedChange}
-                      className="w-full px-4 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-sm"
+                      className="w-full px-3.5 py-3 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-xs"
                     >
                       {formData.tech === 'vite' && (
                         <>
@@ -338,12 +366,12 @@ export function Contact() {
                         <>
                           <option value="Basic">Basic (₹50k)</option>
                           <option value="Corporate & Pro">Corporate & Pro (₹75k)</option>
-                          <option value="E-Commerce & Scale">E-Commerce & Scale (₹1.2L)</option>
+                          <option value="E-Commerce & Scale">E-Commerce (₹1.2L)</option>
                         </>
                       )}
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
-                      <Layout className="w-4 h-4" />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
+                      <Layout className="w-3.5 h-3.5" />
                     </div>
                   </div>
                 </div>
@@ -357,20 +385,21 @@ export function Contact() {
                       id="cycle"
                       value={formData.cycle}
                       onChange={handleSanitizedChange}
-                      className="w-full px-4 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-sm"
+                      className="w-full px-3.5 py-3 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-xs"
                     >
                       <option value="monthly">Monthly</option>
-                      <option value="quarterly">Quarterly (Save ~7%)</option>
-                      <option value="halfyearly">Half-Yearly (Save ~13%)</option>
-                      <option value="yearly">Yearly (Save 20%)</option>
+                      <option value="quarterly">Quarterly (~7% off)</option>
+                      <option value="halfyearly">Half-Yearly (~13% off)</option>
+                      <option value="yearly">Yearly (20% off)</option>
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
-                      <ShieldCheck className="w-4 h-4" />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
+                      <ShieldCheck className="w-3.5 h-3.5" />
                     </div>
                   </div>
                 </div>
               </div>
               
+              {/* Message Field */}
               <div className="space-y-2">
                 <label htmlFor="message" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
                   Your Message
@@ -380,14 +409,14 @@ export function Contact() {
                   value={formData.message}
                   onChange={handleSanitizedChange}
                   rows={4}
-                  className="w-full px-6 py-4 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 resize-none"
-                  placeholder="How can I help you?"
+                  className="w-full px-5 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 resize-none text-sm"
+                  placeholder="Tell me about your project requirements, scope, and timeline..."
                   required
                 />
               </div>
 
               {/* Turnstile Human Verification with Graceful Fallback */}
-              <div className="flex flex-col items-center justify-center py-2 min-h-16">
+              <div className="flex flex-col items-center justify-center py-1 min-h-14">
                 {!turnstileError ? (
                   <Turnstile 
                     siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
@@ -403,24 +432,25 @@ export function Contact() {
                     options={{ theme: 'auto', retry: 'auto', retryInterval: 3000 }}
                   />
                 ) : (
-                  <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2.5 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                  <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
                     <ShieldCheck className="w-4 h-4 shrink-0" />
                     <span>Security Verified: Authenticated via Google OAuth</span>
                   </div>
                 )}
               </div>
               
+              {/* Submit CTA Button */}
               <Button 
                 type="submit" 
-                className="w-full py-7 rounded-2xl font-black text-lg shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500 active:scale-[0.98]" 
+                className="w-full py-6 rounded-2xl font-black text-base shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500 active:scale-[0.98]" 
                 size="lg"
                 disabled={status === 'submitting' || !isVerified || (!turnstileToken && !turnstileError)}
               >
                 {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </Button>
-            </form>
-          </motion.div>
-        </div>
+            </div>
+          </form>
+        </motion.div>
       </div>
     </section>
   );
