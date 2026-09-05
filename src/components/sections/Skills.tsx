@@ -15,6 +15,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'Tools & Performance': <Wrench className="w-6 h-6" />,
   'Platforms': <Cloud className="w-6 h-6" />,
   'Databases': <Database className="w-6 h-6" />,
+  'Vector Databases': <Layers className="w-6 h-6" />,
 };
 
 export function Skills() {
@@ -22,9 +23,10 @@ export function Skills() {
     { title: 'WordPress', skills: portfolioData.skills.wordpress, color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
     { title: 'Frontend', skills: portfolioData.skills.frontend, color: 'text-blue-500', bg: 'bg-blue-500/10' },
     { title: 'Backend', skills: portfolioData.skills.backend, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+    { title: 'Databases', skills: portfolioData.skills.databases, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+    { title: 'Vector Databases', skills: portfolioData.skills.vectorDatabases, color: 'text-rose-500', bg: 'bg-rose-500/10' },
     { title: 'Tools & Performance', skills: portfolioData.skills.tools, color: 'text-purple-500', bg: 'bg-purple-500/10' },
     { title: 'Platforms', skills: portfolioData.skills.platforms, color: 'text-sky-500', bg: 'bg-sky-500/10' },
-    { title: 'Databases', skills: portfolioData.skills.databases, color: 'text-amber-500', bg: 'bg-amber-500/10' },
   ];
 
   return (
