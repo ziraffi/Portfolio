@@ -142,19 +142,19 @@ export function Hero() {
                 )}
                 
                 {/* Floating UI Elements - Theme Aware */}
-                <div className="absolute top-6 left-6 p-4 rounded-2xl glass-texture opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
+                <div className="absolute top-6 left-6 p-4 rounded-2xl bg-card/85 dark:bg-black/60 backdrop-blur-md border border-border/80 shadow-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-lg">
                       <Sparkles className="w-5 h-5 text-primary-fg" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest">Expertise</p>
-                      <p className="text-sm font-bold text-white">Web Development</p>
+                      <p className="text-[10px] font-black text-muted-fg uppercase tracking-widest">Expertise</p>
+                      <p className="text-sm font-bold text-fg">Web Development</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 right-6 p-4 rounded-2xl glass-texture opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                <div className="absolute bottom-6 right-6 p-4 rounded-2xl bg-card/85 dark:bg-black/60 backdrop-blur-md border border-border/80 shadow-xl opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200">
                   <div className="flex items-center gap-3">
                     <div className="flex -space-x-2">
                       <div className="w-8 h-8 rounded-full border-2 border-primary bg-primary/20" />
@@ -162,8 +162,8 @@ export function Hero() {
                       <div className="w-8 h-8 rounded-full border-2 border-indigo-500 bg-indigo-500/20" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest">Clients</p>
-                      <p className="text-sm font-bold text-white">Worldwide</p>
+                      <p className="text-[10px] font-black text-muted-fg uppercase tracking-widest">Clients</p>
+                      <p className="text-sm font-bold text-fg">Worldwide</p>
                     </div>
                   </div>
                 </div>

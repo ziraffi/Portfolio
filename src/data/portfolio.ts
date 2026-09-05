@@ -195,61 +195,9 @@ export const portfolioData = {
       ],
       tags: ["WordPress", "Healthcare", "PHP", "React"],
     },
-    {
-      id: 5,
-      title: "Delta Agrimech",
-      url: "https://stag.deltaagrimech.com/",
-      image: "/projects/deltaagrimech.png",
-      description:
-        "Agriculture machinery manufacturing website focusing on product showcase and lead generation.",
-      highlights: [
-        "Product-based website design",
-        "Lead generation optimization",
-      ],
-      tags: ["WordPress", "Design", "Development"],
-    },
+
     {
       id: 6,
-      title: "High Bay LED Lights",
-      url: "https://high-bay-led-lights.com/",
-      image: "/projects/high-bay-led.png",
-      description:
-        "Microsite designed to attract customers to the parent brand Norse Lighting.",
-      highlights: [
-        "Performance optimization with WP Rocket",
-        "Microsite strategy for traffic redirection",
-        "Minimalist plugin architecture",
-      ],
-      tags: ["Microsite", "WP Rocket", "Performance"],
-    },
-    {
-      id: 7,
-      title: "LED Panel Lights",
-      url: "https://www.led-panel-light.lighting/",
-      image: "/projects/led-panel.png",
-      description:
-        "Product-focused microsite for specialized lighting solutions.",
-      highlights: [
-        "Product-based website design",
-        "Norse Lighting brand integration",
-      ],
-      tags: ["Lighting", "Product Design", "Microsite"],
-    },
-    {
-      id: 8,
-      title: "Norse Lighting",
-      url: "https://www.norse.lighting/",
-      image: "/projects/norse-lighting.png",
-      description:
-        "Parent brand website for high-end lighting products and solutions.",
-      highlights: [
-        "Brand identity implementation",
-        "Product catalog management",
-      ],
-      tags: ["WordPress", "E-commerce", "Lighting"],
-    },
-    {
-      id: 9,
       title: "GSK Solutions",
       url: "https://gsksolutions.com/",
       image: "/projects/gsksolutions.png",
@@ -262,7 +210,7 @@ export const portfolioData = {
       tags: ["IT Services", "Corporate", "Business"],
     },
     {
-      id: 10,
+      id: 7,
       title: "Fabit Corp",
       url: "https://fabitcorp.com/",
       image: "/projects/fabitcorp.png",
@@ -275,7 +223,7 @@ export const portfolioData = {
       tags: ["IT Consulting", "WordPress", "Professional"],
     },
     {
-      id: 11,
+      id: 8,
       title: "Arshiya Travels",
       url: "https://arshiyatravels.com/",
       image: "/projects/arshiyatravels.png",
@@ -285,7 +233,7 @@ export const portfolioData = {
       tags: ["Travel", "Booking", "WordPress"],
     },
     {
-      id: 12,
+      id: 9,
       title: "Manwish Automotives",
       url: "https://manwishautomotives.com/",
       image: "/projects/manwishautomotives.png",
@@ -298,7 +246,7 @@ export const portfolioData = {
       tags: ["Automotive", "Inventory", "Sales"],
     },
     {
-      id: 13,
+      id: 10,
       title: "Low Properties",
       url: "https://lowproperties.com/",
       image: "/projects/lowproperties.png",
@@ -310,7 +258,7 @@ export const portfolioData = {
       tags: ["Real Estate", "Properties", "Management"],
     },
     {
-      id: 14,
+      id: 11,
       title: "Carenest Health",
       url: "https://www.carenesthealth.com/",
       image: "/projects/carenesthealth.png",
