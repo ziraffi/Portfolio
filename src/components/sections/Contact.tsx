@@ -222,232 +222,240 @@ export function Contact() {
           {/* Form Background Accent */}
           <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-          {/* Form: Left and Right Row Split */}
-          <form className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" onSubmit={handleSubmit}>
+          {/* Form: Left and Right Row Split (Column on Tab/Mobile/Small screens) */}
+          <form className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch" onSubmit={handleSubmit}>
             
-            {/* Left Column: Authenticate to Connect with Tooltip + Name & Email */}
-            <div className="lg:col-span-5 space-y-6">
-              
-              {/* Authenticate to Connect with Tooltip */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <label className="text-[10px] font-black text-fg/50 uppercase tracking-[0.2em]">
-                      Authenticate to Connect
-                    </label>
-                    <div className="relative group/tooltip inline-flex items-center">
-                      <button 
-                        type="button"
-                        aria-label="Authentication Info"
-                        className="text-muted-fg/60 hover:text-primary transition-colors cursor-help p-0.5"
-                      >
-                        <Info className="w-3.5 h-3.5" />
-                      </button>
-                      <div className="absolute left-0 bottom-full mb-2 w-64 p-3 rounded-2xl bg-card border border-border shadow-2xl text-xs text-muted-fg font-normal leading-relaxed opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-300 pointer-events-none z-50 backdrop-blur-xl">
-                        <p className="font-bold text-fg mb-1 flex items-center gap-1.5">
-                          <ShieldCheck className="w-3.5 h-3.5 text-primary" />
-                          <span>Spam Protection</span>
-                        </p>
-                        To prevent automated bot scraping and protect direct phone/email channels, quick Google authentication is required before sending.
-                        <div className="absolute left-3 top-full -mt-1 border-4 border-transparent border-t-card" />
+            {/* Left Column: Authenticate + Name + Email + Turnstile (Equal Height) */}
+            <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
+              <div className="space-y-5">
+                
+                {/* Authenticate to Connect with Tooltip */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <label className="text-[11px] font-black text-fg/70 uppercase tracking-[0.15em]">
+                        Authenticate to Connect
+                      </label>
+                      <div className="relative group/tooltip inline-flex items-center">
+                        <button 
+                          type="button"
+                          aria-label="Authentication Info"
+                          className="text-muted-fg/60 hover:text-primary transition-colors cursor-help p-0.5"
+                        >
+                          <Info className="w-3.5 h-3.5" />
+                        </button>
+                        <div className="absolute left-0 bottom-full mb-2 w-64 p-3 rounded-2xl bg-card border border-border shadow-2xl text-xs text-muted-fg font-normal leading-relaxed opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-300 pointer-events-none z-50 backdrop-blur-xl">
+                          <p className="font-bold text-fg mb-1 flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+                            <span>Spam Protection</span>
+                          </p>
+                          To prevent automated bot scraping and protect direct phone/email channels, quick Google authentication is required before sending.
+                          <div className="absolute left-3 top-full -mt-1 border-4 border-transparent border-t-card" />
+                        </div>
                       </div>
                     </div>
+                    {!isVerified && (
+                      <span className="text-[9px] font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        Required
+                      </span>
+                    )}
                   </div>
-                  {!isVerified && (
-                    <span className="text-[9px] font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                      Required
-                    </span>
+
+                  {!isVerified ? (
+                    <Button 
+                      type="button" 
+                      className="w-full py-4 rounded-2xl bg-card dark:bg-neutral-900 text-fg hover:bg-muted/50 dark:hover:bg-neutral-800 border border-border/80 dark:border-neutral-700 shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 flex items-center justify-center gap-3 font-bold text-sm transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                      onClick={() => login()}
+                      disabled={status === 'submitting'}
+                    >
+                      <img src="https://www.google.com/favicon.ico" className="w-4 h-4" alt="Google" />
+                      {status === 'submitting' ? 'Verifying...' : 'Verify with Google'}
+                    </Button>
+                  ) : (
+                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 shadow-[2px_3px_0px_rgba(16,185,129,0.15)] flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <span className="truncate">Verified: {formData.email}</span>
+                    </div>
                   )}
                 </div>
 
-                {!isVerified ? (
-                  <Button 
-                    type="button" 
-                    className="w-full py-4 rounded-2xl bg-white text-black hover:bg-neutral-100 border border-neutral-200 shadow-sm flex items-center justify-center gap-3 font-bold text-sm transition-all"
-                    onClick={() => login()}
-                    disabled={status === 'submitting'}
-                  >
-                    <img src="https://www.google.com/favicon.ico" className="w-4 h-4" alt="Google" />
-                    {status === 'submitting' ? 'Verifying...' : 'Verify with Google'}
-                  </Button>
-                ) : (
-                  <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
-                    <CheckCircle2 className="w-4 h-4 shrink-0" />
-                    <span className="truncate">Verified: {formData.email}</span>
-                  </div>
-                )}
+                {/* Name Field */}
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-[11px] font-black text-fg/70 ml-1 uppercase tracking-[0.15em]">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleSanitizedChange}
+                    readOnly={isVerified}
+                    className={`w-full px-4 py-3.5 rounded-2xl border border-border/80 dark:border-neutral-700 bg-card dark:bg-neutral-900 text-fg placeholder:text-muted-fg/40 text-sm shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:shadow-[1px_2px_0px_rgba(0,0,0,0.1)] transition-all duration-200 ${isVerified ? 'opacity-85 bg-muted/30 cursor-not-allowed' : ''}`}
+                    placeholder="Full Name"
+                    required
+                  />
+                </div>
+                
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-[11px] font-black text-fg/70 ml-1 uppercase tracking-[0.15em]">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleSanitizedChange}
+                    readOnly={isVerified}
+                    className={`w-full px-4 py-3.5 rounded-2xl border border-border/80 dark:border-neutral-700 bg-card dark:bg-neutral-900 text-fg placeholder:text-muted-fg/40 text-sm shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 focus:shadow-[1px_2px_0px_rgba(0,0,0,0.1)] transition-all duration-200 ${isVerified ? 'opacity-85 bg-muted/30 cursor-not-allowed' : ''}`}
+                    placeholder="email@example.com"
+                    required
+                  />
+                </div>
               </div>
 
-              {/* Name Field */}
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleSanitizedChange}
-                  readOnly={isVerified}
-                  className={`w-full px-5 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 text-sm ${isVerified ? 'opacity-80 bg-muted/20' : ''}`}
-                  placeholder="Full Name"
-                  required
-                />
-              </div>
-              
-              {/* Email Field */}
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleSanitizedChange}
-                  readOnly={isVerified}
-                  className={`w-full px-5 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 text-sm ${isVerified ? 'opacity-80 bg-muted/20' : ''}`}
-                  placeholder="email@example.com"
-                  required
-                />
+              {/* Turnstile Human Verification in Left Column Bottom */}
+              <div className="mt-auto pt-4">
+                <div className="flex flex-col items-center justify-center min-h-[66px] p-2 rounded-2xl border border-border/80 dark:border-neutral-700/80 bg-card/60 dark:bg-neutral-900/60 shadow-[2px_3px_0px_rgba(0,0,0,0.05),0_2px_4px_rgba(0,0,0,0.03)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.4)]">
+                  {!turnstileError ? (
+                    <Turnstile 
+                      siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
+                      onSuccess={(token) => {
+                        setTurnstileToken(token);
+                        setTurnstileError(false);
+                      }}
+                      onError={(err) => {
+                        console.warn('[Cloudflare Turnstile] Challenge blocked/failed (Error 300030 or CSP):', err);
+                        setTurnstileError(true);
+                      }}
+                      onExpire={() => setTurnstileToken(null)}
+                      options={{ theme: 'auto', retry: 'auto', retryInterval: 3000 }}
+                    />
+                  ) : (
+                    <div className="p-2.5 w-full rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 text-center">
+                      <ShieldCheck className="w-4 h-4 shrink-0 text-emerald-500" />
+                      <span>Security Verified via Google OAuth</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Remaining fields (Selectors, Message, Turnstile, Submit) */}
-            <div className="lg:col-span-7 space-y-6">
+            {/* Right Column: Selectors + Message + Submit Button (Equal Height) */}
+            <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-6">
               
-              {/* Selectors Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="space-y-2">
-                  <label htmlFor="tech" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                    Tech Stack
-                  </label>
-                  <div className="relative">
-                    <select
-                      id="tech"
-                      value={formData.tech}
-                      onChange={handleSanitizedChange}
-                      className="w-full px-3.5 py-3 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-xs"
-                    >
-                      <option value="wordpress">WordPress / CMS</option>
-                      <option value="nextjs">Next.js / Pro</option>
-                      <option value="vite">Vite + React</option>
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
-                      <Settings className="w-3.5 h-3.5" />
+              <div className="space-y-5 flex-1 flex flex-col">
+                {/* Selectors Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="space-y-2">
+                    <label htmlFor="tech" className="text-[11px] font-black text-fg/70 ml-1 uppercase tracking-[0.15em]">
+                      Tech Stack
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="tech"
+                        value={formData.tech}
+                        onChange={handleSanitizedChange}
+                        className="w-full px-3.5 py-3 rounded-2xl border border-border/80 dark:border-neutral-700 bg-card dark:bg-neutral-900 text-fg appearance-none font-bold cursor-pointer text-xs shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                      >
+                        <option value="wordpress">WordPress / CMS</option>
+                        <option value="nextjs">Next.js / Pro</option>
+                        <option value="vite">Vite + React</option>
+                      </select>
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg">
+                        <Settings className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="tier" className="text-[11px] font-black text-fg/70 ml-1 uppercase tracking-[0.15em]">
+                      Plan Tier
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="tier"
+                        value={formData.tier}
+                        onChange={handleSanitizedChange}
+                        className="w-full px-3.5 py-3 rounded-2xl border border-border/80 dark:border-neutral-700 bg-card dark:bg-neutral-900 text-fg appearance-none font-bold cursor-pointer text-xs shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                      >
+                        {formData.tech === 'vite' && (
+                          <>
+                            <option value="Basic">Basic (₹50k)</option>
+                            <option value="Advanced">Advanced (₹75k)</option>
+                          </>
+                        )}
+                        {formData.tech === 'nextjs' && (
+                          <>
+                            <option value="Business">Business (₹85k)</option>
+                            <option value="Enterprise">Enterprise (₹1.5L)</option>
+                          </>
+                        )}
+                        {formData.tech === 'wordpress' && (
+                          <>
+                            <option value="Basic">Basic (₹50k)</option>
+                            <option value="Corporate & Pro">Corporate & Pro (₹75k)</option>
+                            <option value="E-Commerce & Scale">E-Commerce (₹1.2L)</option>
+                          </>
+                        )}
+                      </select>
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg">
+                        <Layout className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="cycle" className="text-[11px] font-black text-fg/70 ml-1 uppercase tracking-[0.15em]">
+                      Maintenance
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="cycle"
+                        value={formData.cycle}
+                        onChange={handleSanitizedChange}
+                        className="w-full px-3.5 py-3 rounded-2xl border border-border/80 dark:border-neutral-700 bg-card dark:bg-neutral-900 text-fg appearance-none font-bold cursor-pointer text-xs shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                      >
+                        <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly (~7% off)</option>
+                        <option value="halfyearly">Half-Yearly (~13% off)</option>
+                        <option value="yearly">Yearly (20% off)</option>
+                      </select>
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <label htmlFor="tier" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                    Plan Tier
+                {/* Message Field */}
+                <div className="space-y-2 flex-1 flex flex-col">
+                  <label htmlFor="message" className="text-[11px] font-black text-fg/70 ml-1 uppercase tracking-[0.15em]">
+                    Your Message
                   </label>
-                  <div className="relative">
-                    <select
-                      id="tier"
-                      value={formData.tier}
-                      onChange={handleSanitizedChange}
-                      className="w-full px-3.5 py-3 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-xs"
-                    >
-                      {formData.tech === 'vite' && (
-                        <>
-                          <option value="Basic">Basic (₹50k)</option>
-                          <option value="Advanced">Advanced (₹75k)</option>
-                        </>
-                      )}
-                      {formData.tech === 'nextjs' && (
-                        <>
-                          <option value="Business">Business (₹85k)</option>
-                          <option value="Enterprise">Enterprise (₹1.5L)</option>
-                        </>
-                      )}
-                      {formData.tech === 'wordpress' && (
-                        <>
-                          <option value="Basic">Basic (₹50k)</option>
-                          <option value="Corporate & Pro">Corporate & Pro (₹75k)</option>
-                          <option value="E-Commerce & Scale">E-Commerce (₹1.2L)</option>
-                        </>
-                      )}
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
-                      <Layout className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="cycle" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                    Maintenance
-                  </label>
-                  <div className="relative">
-                    <select
-                      id="cycle"
-                      value={formData.cycle}
-                      onChange={handleSanitizedChange}
-                      className="w-full px-3.5 py-3 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 appearance-none font-bold cursor-pointer text-xs"
-                    >
-                      <option value="monthly">Monthly</option>
-                      <option value="quarterly">Quarterly (~7% off)</option>
-                      <option value="halfyearly">Half-Yearly (~13% off)</option>
-                      <option value="yearly">Yearly (20% off)</option>
-                    </select>
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-fg/40">
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Message Field */}
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-[10px] font-black text-fg/40 ml-1 uppercase tracking-[0.2em]">
-                  Your Message
-                </label>
-                <textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={handleSanitizedChange}
-                  rows={4}
-                  className="w-full px-5 py-3.5 rounded-2xl border border-border/60 bg-bg/50 text-fg focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 placeholder:text-muted-fg/40 resize-none text-sm"
-                  placeholder="Tell me about your project requirements, scope, and timeline..."
-                  required
-                />
-              </div>
-
-              {/* Turnstile Human Verification with Graceful Fallback */}
-              <div className="flex flex-col items-center justify-center py-1 min-h-14">
-                {!turnstileError ? (
-                  <Turnstile 
-                    siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
-                    onSuccess={(token) => {
-                      setTurnstileToken(token);
-                      setTurnstileError(false);
-                    }}
-                    onError={(err) => {
-                      console.warn('[Cloudflare Turnstile] Challenge blocked/failed (Error 300030 or CSP):', err);
-                      setTurnstileError(true);
-                    }}
-                    onExpire={() => setTurnstileToken(null)}
-                    options={{ theme: 'auto', retry: 'auto', retryInterval: 3000 }}
+                  <textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={handleSanitizedChange}
+                    rows={5}
+                    className="w-full flex-1 min-h-[140px] px-4 py-3.5 rounded-2xl border border-border/80 dark:border-neutral-700 bg-card dark:bg-neutral-900 text-fg placeholder:text-muted-fg/40 resize-none text-sm shadow-[2px_3px_0px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[2px_3px_0px_rgba(0,0,0,0.5),0_2px_8px_rgba(0,0,0,0.3)] hover:border-primary/40 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                    placeholder="Tell me about your project requirements, scope, and timeline..."
+                    required
                   />
-                ) : (
-                  <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                    <ShieldCheck className="w-4 h-4 shrink-0" />
-                    <span>Security Verified: Authenticated via Google OAuth</span>
-                  </div>
-                )}
+                </div>
               </div>
               
-              {/* Submit CTA Button */}
-              <Button 
-                type="submit" 
-                className="w-full py-6 rounded-2xl font-black text-base shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500 active:scale-[0.98]" 
-                size="lg"
-                disabled={status === 'submitting' || !isVerified || (!turnstileToken && !turnstileError)}
-              >
-                {status === 'submitting' ? 'Sending...' : 'Send Message'}
-              </Button>
+              {/* Submit CTA Button in Right Column Bottom */}
+              <div className="mt-auto pt-4">
+                <Button 
+                  type="submit" 
+                  className="w-full h-[66px] rounded-2xl font-black text-base shadow-[2px_4px_0px_rgba(0,0,0,0.15)] dark:shadow-[2px_4px_0px_rgba(0,0,0,0.7)] hover:shadow-[3px_5px_0px_rgba(0,0,0,0.2)] active:shadow-none active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200 cursor-pointer" 
+                  size="lg"
+                  disabled={status === 'submitting' || !isVerified || (!turnstileToken && !turnstileError)}
+                >
+                  {status === 'submitting' ? 'Sending...' : 'Send Message'}
+                </Button>
+              </div>
             </div>
           </form>
         </motion.div>
