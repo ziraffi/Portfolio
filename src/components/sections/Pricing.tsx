@@ -486,7 +486,11 @@ export function Pricing() {
                       size="lg"
                       onClick={() => setPlan(activeTech, plan.name, activeCycle)}
                     >
-                      Choose {plan.name} Plan
+                      {plan.name === "Corporate & Pro" 
+                        ? "Choose Pro Plan" 
+                        : plan.name === "E-Commerce & Scale" 
+                        ? "Choose E-Commerce Plan" 
+                        : `Choose ${plan.name} Plan`}
                     </Button>
                   </div>
                 </motion.div>
