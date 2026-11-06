@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, ShieldCheck, CheckCircle2, AlertCircle, Settings, Layout, Info } from 'lucide-react';
+import { Mail, Phone, MapPin, ShieldCheck, CheckCircle2, AlertCircle, Settings, Layout, Info, Unlock } from 'lucide-react';
 import { SectionHeading } from '@/src/components/ui/SectionHeading';
 import { Button } from '@/src/components/ui/Button';
 import { portfolioData } from '@/src/data/portfolio';
@@ -12,7 +12,9 @@ import emailjs from '@emailjs/browser';
 
 export function Contact() {
   const { email: personalEmail, phone, location } = portfolioData.personal;
-  const { selectedPlan, clearPlan } = usePlan();
+  const { selectedPlan, clearPlan, pricingUnlocked, unlockPricing } = usePlan();
+  // Tier price hints are only shown once pricing is unlocked
+  const tierLabel = (name: string, price: string) => (pricingUnlocked ? `${name} (${price})` : name);
   
   const [formData, setFormData] = useState({ 
     name: '', 
@@ -117,6 +119,7 @@ export function Contact() {
       }
 
       setStatus('success');
+      unlockPricing();
       setFormData({ 
         name: '', 
         email: '', 
@@ -210,6 +213,15 @@ export function Contact() {
                       {location}
                     </span>
                   </div>
+                </div>
+
+                {/* Pricing unlocked notice */}
+                <div className="w-full max-w-2xl mb-8 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center gap-2.5 text-xs sm:text-sm text-fg">
+                  <Unlock className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <span>
+                    <strong className="font-semibold">Pricing unlocked:</strong> full package and maintenance pricing is now visible in the{' '}
+                    <a href="#pricing" className="font-bold text-primary hover:underline">Pricing section</a>.
+                  </span>
                 </div>
 
                 <Button variant="secondary" className="px-8 py-3 rounded-xl font-bold" onClick={() => setStatus('idle')}>
@@ -381,21 +393,21 @@ export function Contact() {
                       >
                         {formData.tech === 'vite' && (
                           <>
-                            <option value="Basic" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">Basic (₹50k)</option>
-                            <option value="Advanced" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">Advanced (₹75k)</option>
+                            <option value="Basic" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("Basic", "₹50k")}</option>
+                            <option value="Advanced" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("Advanced", "₹75k")}</option>
                           </>
                         )}
                         {formData.tech === 'nextjs' && (
                           <>
-                            <option value="Business" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">Business (₹85k)</option>
-                            <option value="Enterprise" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">Enterprise (₹1.5L)</option>
+                            <option value="Business" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("Business", "₹85k")}</option>
+                            <option value="Enterprise" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("Enterprise", "₹1.5L")}</option>
                           </>
                         )}
                         {formData.tech === 'wordpress' && (
                           <>
-                            <option value="Basic" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">Basic (₹50k)</option>
-                            <option value="Corporate & Pro" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">Corporate & Pro (₹75k)</option>
-                            <option value="E-Commerce & Scale" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">E-Commerce (₹1.2L)</option>
+                            <option value="Basic" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("Basic", "₹50k")}</option>
+                            <option value="Corporate & Pro" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("Corporate & Pro", "₹75k")}</option>
+                            <option value="E-Commerce & Scale" className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">{tierLabel("E-Commerce", "₹1.2L")}</option>
                           </>
                         )}
                       </select>

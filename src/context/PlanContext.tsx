@@ -1,4 +1,15 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+
+const PRICING_UNLOCK_KEY = 'portfolio_pricing_unlocked';
+
+function readPricingUnlocked(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.localStorage.getItem(PRICING_UNLOCK_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
 
 export type MaintenanceCycle = 'monthly' | 'quarterly' | 'halfyearly' | 'yearly';
 
@@ -12,6 +23,8 @@ type PlanContextType = {
   selectedPlan: SelectedPlan | null;
   setPlan: (tech: string, tier: string, cycle?: MaintenanceCycle) => void;
   clearPlan: () => void;
+  pricingUnlocked: boolean;
+  unlockPricing: () => void;
 };
 
 const PlanContext = createContext<PlanContextType | undefined>(undefined);
@@ -30,8 +43,21 @@ export function PlanProvider({ children }: { children: ReactNode }) {
 
   const clearPlan = () => setSelectedPlan(null);
 
+  // Pricing is gated until the visitor successfully sends an inquiry.
+  // Persisted so returning visitors who already submitted stay unlocked.
+  const [pricingUnlocked, setPricingUnlocked] = useState<boolean>(readPricingUnlocked);
+
+  const unlockPricing = useCallback(() => {
+    setPricingUnlocked(true);
+    try {
+      window.localStorage.setItem(PRICING_UNLOCK_KEY, 'true');
+    } catch {
+      // Storage unavailable (private mode etc.): unlock for this session only.
+    }
+  }, []);
+
   return (
-    <PlanContext.Provider value={{ selectedPlan, setPlan, clearPlan }}>
+    <PlanContext.Provider value={{ selectedPlan, setPlan, clearPlan, pricingUnlocked, unlockPricing }}>
       {children}
     </PlanContext.Provider>
   );
