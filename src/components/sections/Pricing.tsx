@@ -14,6 +14,7 @@ import {
   Settings,
   Sparkles,
   Calendar,
+  Lock,
 } from "lucide-react";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Button } from "../ui/Button";
@@ -38,6 +39,8 @@ interface PlanItem {
 interface TechGroup {
   name: string;
   description: string;
+  /** Shown instead of `description` once pricing is unlocked (may mention prices). */
+  unlockedDescription?: string;
   plans: PlanItem[];
 }
 
@@ -45,6 +48,8 @@ const techPricing: Record<string, TechGroup> = {
   wordpress: {
     name: "WordPress / Custom CMS",
     description:
+      "Token-based custom themes, custom plugins, zero-page-builder architectures, and high-performance managed CMS platforms.",
+    unlockedDescription:
       "Token-based custom themes, custom plugins, zero-page-builder architectures, and high-performance managed CMS platforms starting at ₹50,000.",
     plans: [
       {
@@ -273,7 +278,7 @@ const cycles: { id: MaintenanceCycle; label: string; badge?: string }[] = [
 ];
 
 export function Pricing() {
-  const { setPlan } = usePlan();
+  const { setPlan, pricingUnlocked } = usePlan();
   const [activeTech, setActiveTech] =
     useState<keyof typeof techPricing>("wordpress");
   const [activeCycle, setActiveCycle] = useState<MaintenanceCycle>("monthly");
@@ -289,7 +294,11 @@ export function Pricing() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Scalable Web Solutions & Pricing"
-          subtitle="Transparent, value-driven pricing starting from ₹50,000. Select your technology and flexible maintenance cycle tailored for long-term growth."
+          subtitle={
+            pricingUnlocked
+              ? "Transparent, value-driven pricing starting from ₹50,000. Select your technology and flexible maintenance cycle tailored for long-term growth."
+              : "Value-driven packages tailored to your stack. Select your technology and flexible maintenance cycle built for long-term growth."
+          }
           className="text-center flex flex-col items-center mx-auto"
         />
 
@@ -374,8 +383,16 @@ export function Pricing() {
           >
             <h2 className="text-3xl font-black text-fg text-center">{currentTech.name}</h2>
             <p className="text-lg text-muted-fg leading-relaxed px-4 max-w-2xl mx-auto text-center">
-              {currentTech.description}
+              {pricingUnlocked && currentTech.unlockedDescription
+                ? currentTech.unlockedDescription
+                : currentTech.description}
             </p>
+            {!pricingUnlocked && (
+              <div className="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-semibold text-fg">
+                <Lock className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>Pricing is shared after you send an inquiry through the contact form.</span>
+              </div>
+            )}
           </motion.div>
         </div>
 
@@ -437,13 +454,33 @@ export function Pricing() {
                         One-Time Build Cost
                       </div>
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-fg tracking-tighter">
-                          ₹{plan.price}
-                        </span>
+                        {pricingUnlocked ? (
+                          <span className="text-4xl font-black text-fg tracking-tighter">
+                            ₹{plan.price}
+                          </span>
+                        ) : (
+                          // Placeholder only: the real price is never rendered while locked
+                          <span
+                            aria-hidden="true"
+                            className="text-4xl font-black text-fg/40 tracking-tighter blur-[6px] select-none"
+                          >
+                            ₹00,000
+                          </span>
+                        )}
                         <span className="text-muted-fg text-xs font-semibold uppercase tracking-wider">
                           / project
                         </span>
                       </div>
+                      {!pricingUnlocked && (
+                        <button
+                          type="button"
+                          onClick={() => setPlan(activeTech, plan.name, activeCycle)}
+                          className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-primary hover:underline"
+                        >
+                          <Lock className="w-3.5 h-3.5" />
+                          Unlock to view
+                        </button>
+                      )}
 
                       {/* Maintenance Breakdown Card */}
                       <div className="mt-4 p-3.5 rounded-2xl bg-muted/40 border border-border/60 flex items-center justify-between">
@@ -453,15 +490,31 @@ export function Pricing() {
                             Maintenance ({activeCycle})
                           </div>
                           <div className="text-base font-black text-fg tracking-tight mt-0.5">
-                            ₹{maint.amount}{" "}
+                            {pricingUnlocked ? (
+                              <>₹{maint.amount}{" "}</>
+                            ) : (
+                              <span
+                                aria-hidden="true"
+                                className="text-fg/40 blur-[4px] select-none"
+                              >
+                                ₹0,000{" "}
+                              </span>
+                            )}
                             <span className="text-xs font-medium text-muted-fg">
                               {maint.periodLabel}
                             </span>
                           </div>
                         </div>
                         <div className="text-right">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-primary/10 text-primary">
-                            {maint.monthlyEquivalent}
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-primary/10 text-primary inline-flex items-center gap-1">
+                            {pricingUnlocked ? (
+                              maint.monthlyEquivalent
+                            ) : (
+                              <>
+                                <Lock className="w-3 h-3" />
+                                Locked
+                              </>
+                            )}
                           </span>
                         </div>
                       </div>
@@ -486,7 +539,9 @@ export function Pricing() {
                       size="lg"
                       onClick={() => setPlan(activeTech, plan.name, activeCycle)}
                     >
-                      {plan.name === "Corporate & Pro" 
+                      {!pricingUnlocked
+                        ? "Request Pricing"
+                        : plan.name === "Corporate & Pro" 
                         ? "Choose Pro Plan" 
                         : plan.name === "E-Commerce & Scale" 
                         ? "Choose E-Commerce Plan" 
