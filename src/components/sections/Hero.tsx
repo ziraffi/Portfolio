@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Github, Linkedin, Mail, Sparkles, Gauge, Activity, Briefcase, Globe } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, Sparkles, Gauge, Activity, Briefcase } from 'lucide-react';
 import { Button } from '@/src/components/ui/Button';
 import { portfolioData } from '@/src/data/portfolio';
 import { ParticlesBackground } from '@/src/components/ui/ParticlesBackground';
@@ -154,50 +154,30 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[420px] mx-auto group">
-              {/* Soft glow behind frame */}
-              <div className="absolute -inset-6 bg-primary/15 rounded-[3rem] blur-3xl opacity-60 -z-10" />
+            <div className="relative w-full max-w-[240px] sm:max-w-[320px] lg:max-w-[380px] mx-auto">
+              {/* Offset editorial slab behind the portrait */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 translate-x-4 translate-y-4 sm:translate-x-6 sm:translate-y-6 rounded-[1.75rem] bg-linear-to-br from-primary/25 via-blue-500/20 to-indigo-500/30 dark:from-primary/30 dark:via-blue-500/25 dark:to-indigo-500/35 border border-primary/20"
+              />
 
-              {/* Gradient border frame */}
-              <div className="relative p-[1.5px] rounded-[2rem] bg-linear-to-br from-primary/60 via-border to-indigo-500/50 shadow-2xl shadow-primary/10">
-                <div className="relative aspect-4/5 overflow-hidden rounded-[calc(2rem-1.5px)] bg-white">
-                  {image ? (
-                    <img
-                      src={image}
-                      alt={name}
-                      className="w-full h-full object-cover object-[50%_40%] transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-muted">
-                      <Sparkles className="w-12 h-12 text-primary/40 animate-pulse" />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Always-visible captions (no hover required, so they work on mobile) */}
-              <div className="absolute -left-4 sm:-left-8 top-8 px-3 py-2 sm:px-4 sm:py-3 rounded-2xl bg-card/90 dark:bg-black/70 backdrop-blur-md border border-border/80 shadow-xl">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg shrink-0">
-                    <Sparkles className="w-4 h-4 text-primary-fg" />
+              {/* Portrait: tall rounded rectangle.
+                  profile.png has a circular badge + decorative lines baked in, so the
+                  photo is scaled and positioned to show only the inner headshot area. */}
+              <div className="relative aspect-4/5 overflow-hidden rounded-[1.75rem] bg-white border border-border/60 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)] dark:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.8)]">
+                {image ? (
+                  <img
+                    src={image}
+                    alt={name}
+                    className="absolute max-w-none select-none"
+                    style={{ width: '266.67%', left: '-83.33%', top: '-45.87%' }}
+                    draggable={false}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-muted">
+                    <Sparkles className="w-12 h-12 text-primary/40 animate-pulse" />
                   </div>
-                  <div className="text-left">
-                    <p className="text-[9px] font-black text-muted-fg uppercase tracking-widest">Expertise</p>
-                    <p className="text-xs sm:text-sm font-bold text-fg">Web Development</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute -right-4 sm:-right-8 bottom-8 px-3 py-2 sm:px-4 sm:py-3 rounded-2xl bg-card/90 dark:bg-black/70 backdrop-blur-md border border-border/80 shadow-xl">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-indigo-500/15 text-indigo-500 flex items-center justify-center shrink-0">
-                    <Globe className="w-4 h-4" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[9px] font-black text-muted-fg uppercase tracking-widest">Clients</p>
-                    <p className="text-xs sm:text-sm font-bold text-fg">Worldwide</p>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </motion.div>
